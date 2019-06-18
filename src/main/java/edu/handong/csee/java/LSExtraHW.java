@@ -13,14 +13,12 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 public class LSExtraHW {
-	String ls;
 	String input;
 	boolean lisFiles;
 	boolean DoNotSort;
 	boolean size;
 	boolean help;
 	boolean modificationTime;
-	String LS = "ls";
 	
 	public void run(String[] args) throws IOException {
 		Options options = createOptions();
@@ -31,10 +29,18 @@ public class LSExtraHW {
 				return;
 			}
 		}
-		
-		if (ls.equals(LS)){
+
 			System.out.println("This is the input path(including the name of dicrectory that you want to search): "+input);
 			System.out.println(" ");
+			//error!! 
+			
+			if(input == null) {
+				if (help) {
+					printHelp(options);
+				}
+				System.out.println("Please fill out the option '-i'. It is required option!");
+				System.exit(0);
+			}
 			
 			File a = new File(input);
 			ArrayList<String> filenames = new ArrayList<String>();
@@ -142,11 +148,12 @@ public class LSExtraHW {
 				System.out.println(" ");
 			}
 			}
+	
 		
 		
 		
 		
-		}
+
 	
 	private boolean parseOptions(Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
@@ -154,9 +161,6 @@ public class LSExtraHW {
 		try {
 
 			CommandLine cmd = parser.parse(options, args);
-			
-			//put the word ls
-			ls = cmd.getOptionValue("l");
 			
 			//input path of file
 			input = cmd.getOptionValue("i");
@@ -191,13 +195,6 @@ public class LSExtraHW {
 		private Options createOptions() {
 			Options options = new Options();
 			
-			// add options by using OptionBuilder
-			options.addOption(Option.builder("l").longOpt("LS")
-					.desc("put the word 'ls' as requirement ")
-					.hasArg()
-					.argName("LS")
-					.required()
-					.build());
 			// add options by using OptionBuilder
 			options.addOption(Option.builder("i").longOpt("input")
 					.desc("Set an input file path")

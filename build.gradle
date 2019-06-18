@@ -50,4 +50,7 @@ compile group: 'org.apache.poi', name: 'poi', version: '3.17'
 	compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
 	
 	compile 'org.apache.commons:commons-collections4:4.3'
+	
+	apply plugin: 'application'
+	mainClassName = "edu.handong.csee.java.Main"
 }
